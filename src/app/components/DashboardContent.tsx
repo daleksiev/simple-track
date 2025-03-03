@@ -1,9 +1,12 @@
 "use client";
 
 import Card from "@/components/ui/Card";
+import { useRouter } from "next/navigation";
 import { BarChartIcon, PersonIcon, TimerIcon } from "@radix-ui/react-icons";
 
 export default function DashboardContent() {
+  const router = useRouter();
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
@@ -66,7 +69,12 @@ export default function DashboardContent() {
           <Card.Body>
             <div className="text-base-content/60 text-center py-8">
               <p>No recent activities</p>
-              <button className="btn btn-primary mt-4">Start Workout</button>
+              <button
+                className="btn btn-primary mt-4"
+                onClick={() => router.push("/workout")}
+              >
+                Start Workout
+              </button>
             </div>
           </Card.Body>
         </Card>

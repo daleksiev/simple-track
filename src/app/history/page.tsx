@@ -104,7 +104,7 @@ export default function HistoryPage() {
             className={`overflow-hidden ${
               isToday(workout.date)
                 ? "border-2 border-primary"
-                : "border border-base-300"
+                : "border-2 border-gray-600"
             }`}
           >
             <Card.Body>
@@ -115,15 +115,16 @@ export default function HistoryPage() {
                     <span className="badge badge-primary ml-2">Today</span>
                   )}
                 </h2>
-                <button
-                  className="btn btn-ghost btn-sm"
+                <Button
+                  className="ml-4 w-8 h-8 p-0"
+                  variant="error"
                   onClick={() =>
                     setWorkoutToDelete({ key, date: workout.date })
                   }
                   aria-label="Delete workout"
                 >
                   <Cross2Icon className="w-4 h-4" />
-                </button>
+                </Button>
               </div>
 
               <div className="overflow-x-auto">

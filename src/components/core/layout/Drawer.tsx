@@ -18,6 +18,7 @@ export function Drawer({ className = "" }: DrawerProps) {
         }`}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
+        onClick={() => setIsExpanded(false)}
       >
         <Navigation isExpanded={isExpanded} />
       </div>

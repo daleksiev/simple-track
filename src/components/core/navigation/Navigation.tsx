@@ -45,11 +45,13 @@ export function Navigation({ isExpanded }: { isExpanded: boolean }) {
       icon: <PersonIcon className="w-4 h-4" />,
       title: "Profile",
       href: "/profile",
+      hidden: true,
     },
     {
       icon: <GearIcon className="w-4 h-4" />,
       title: "Settings",
       href: "/settings",
+      hidden: true,
     },
   ];
 
@@ -65,15 +67,17 @@ export function Navigation({ isExpanded }: { isExpanded: boolean }) {
         </h2>
       </div>
       <ul className="menu menu-vertical gap-1 px-0">
-        {navItems.map((item, index) => (
-          <NavItem
-            key={index}
-            icon={item.icon}
-            title={item.title}
-            isExpanded={isExpanded}
-            href={item.href}
-          />
-        ))}
+        {navItems.map((item, index) =>
+          item?.hidden ? null : (
+            <NavItem
+              key={index}
+              icon={item.icon}
+              title={item.title}
+              isExpanded={isExpanded}
+              href={item.href}
+            />
+          )
+        )}
       </ul>
     </div>
   );

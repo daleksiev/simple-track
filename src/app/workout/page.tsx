@@ -52,7 +52,7 @@ export default function WorkoutPage() {
   const addSet = (exerciseIndex: number) => {
     const updatedExercises = [...exercises];
     updatedExercises[exerciseIndex].sets.push({ reps: "" });
-    setExercises(updatedExercises);
+    setExercises(() => updatedExercises);
     saveToLocalStorage(updatedExercises);
   };
 
@@ -171,16 +171,17 @@ export default function WorkoutPage() {
                   <div>
                     <label className="label">Sets x Reps</label>
                     <div className="flex flex-wrap gap-2">
-                      {exercise.sets.map((set, setIndex) => (
+                      {exercise.sets.map((set, index) => (
                         <Input
-                          key={setIndex}
+                          key={index}
                           type="number"
                           placeholder="Reps"
                           className="w-16"
                           value={set.reps}
                           data-exercise={exerciseIndex}
+                          autoFocus={index === exercise.sets.length - 1}
                           onChange={(e) =>
-                            updateSet(exerciseIndex, setIndex, e.target.value)
+                            updateSet(exerciseIndex, index, e.target.value)
                           }
                           onKeyDown={(e) => {
                             if (
@@ -188,7 +189,10 @@ export default function WorkoutPage() {
                               set.reps === ""
                             ) {
                               e.preventDefault();
-                              deleteSet(exerciseIndex, setIndex);
+                              deleteSet(exerciseIndex, index);
+                            } else if (e.key === "Enter" && set.reps !== "") {
+                              e.preventDefault();
+                              addSet(exerciseIndex);
                             }
                           }}
                         />

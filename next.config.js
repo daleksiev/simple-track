@@ -1,3 +1,5 @@
+import path from "path";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // ... other config options ...
@@ -9,9 +11,11 @@ const nextConfig = {
         __dirname,
         "src/components/core/data-display"
       ),
+      "@/data-input": path.resolve(__dirname, "src/components/core/data-input"),
       "@/layout": path.resolve(__dirname, "src/components/core/layout"),
       "@/navigation": path.resolve(__dirname, "src/components/core/navigation"),
       "@/mockup": path.resolve(__dirname, "src/components/core/mockup"),
+      "@/utils": path.resolve(__dirname, "src/components/core/utils"),
     };
     return config;
   },

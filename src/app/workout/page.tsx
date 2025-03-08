@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Card } from "@/data-display";
+import { Input } from "@/data-input";
 import { PlusIcon, Cross2Icon } from "@radix-ui/react-icons";
 
 interface ExerciseSet {
@@ -144,10 +145,8 @@ export default function WorkoutPage() {
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex-1">
                     <label className="label">Exercise</label>
-                    <input
-                      type="text"
+                    <Input
                       placeholder="Exercise name"
-                      className="input input-bordered w-full focus:outline-none"
                       value={exercise.name}
                       onChange={(e) =>
                         updateExercise(exerciseIndex, "name", e.target.value)
@@ -158,10 +157,9 @@ export default function WorkoutPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="label">Weight (kg)</label>
-                    <input
+                    <Input
                       type="number"
                       placeholder="Weight"
-                      className="input input-bordered w-full focus:outline-none"
                       value={exercise.weight}
                       onChange={(e) =>
                         updateExercise(exerciseIndex, "weight", e.target.value)
@@ -172,11 +170,11 @@ export default function WorkoutPage() {
                     <label className="label">Sets x Reps</label>
                     <div className="flex flex-wrap gap-2">
                       {exercise.sets.map((set, setIndex) => (
-                        <input
+                        <Input
                           key={setIndex}
                           type="number"
                           placeholder="Reps"
-                          className="input input-bordered w-16 focus:outline-none"
+                          className="w-16"
                           value={set.reps}
                           data-exercise={exerciseIndex}
                           onChange={(e) =>

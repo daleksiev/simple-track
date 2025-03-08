@@ -21,7 +21,6 @@ export function Drawer({ className = "" }: DrawerProps) {
       >
         <Navigation isExpanded={isExpanded} />
       </div>
-      <main className={`ml-14 transition-all duration-300`}></main>
     </div>
   );
 }

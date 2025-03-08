@@ -32,6 +32,9 @@
       "@/actions": [
         "src/components/core/actions"
       ],
+      "@/data-input": [
+        "src/components/core/data-input"
+      ],
       "@/data-display": [
         "src/components/core/data-display"
       ],
@@ -43,6 +46,9 @@
       ],
       "@/mockup": [
         "src/components/core/mockup"
+      ],
+      "@/utils": [
+        "src/components/core/utils"
       ],
       "@/*": [
         "./src/*"

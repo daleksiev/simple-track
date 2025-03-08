@@ -1,5 +1,6 @@
-import DashboardContent from "./components/DashboardContent";
-import { Card } from "@/data-display";
+"use client";
+
+import DashboardContent from "./dashboard/page";
 
 export default function HomePage() {
   return <DashboardContent />;

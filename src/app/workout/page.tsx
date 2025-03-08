@@ -133,7 +133,10 @@ export default function WorkoutPage() {
                 key={exerciseIndex}
                 className="w-80 bg-base-200 rounded-lg p-4 shadow-lg shadow-indigo-600 border border-indigo-600 "
               >
-                <div className="flex flex-row-reverse items-center gap-2 mb-3 justify-between">
+                <div className="flex  items-center gap-2 mb-3 justify-between">
+                  <h1 className="text-2xl font-bold">
+                    {exercise?.name || `Exercise ${exerciseIndex + 1}`}
+                  </h1>
                   <button
                     className="btn btn-square btn-sm btn-error"
                     onClick={() => deleteExercise(exerciseIndex)}
@@ -145,7 +148,7 @@ export default function WorkoutPage() {
                   <div className="flex-1">
                     <label className="label">Exercise</label>
                     <Input
-                      placeholder="Exercise name"
+                      placeholder={`Exercise ${exerciseIndex + 1}`}
                       value={exercise.name}
                       onChange={(e) =>
                         updateExercise(exerciseIndex, "name", e.target.value)

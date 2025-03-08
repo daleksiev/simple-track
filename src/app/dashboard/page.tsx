@@ -3,9 +3,66 @@
 import { Card } from "@/data-display";
 import { useRouter } from "next/navigation";
 import { BarChartIcon, PersonIcon, TimerIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/core/actions";
+import { useState } from "react";
 
+interface ExerciseSet {
+  reps: string;
+}
+
+interface Exercise {
+  name: string;
+  weight: string;
+  sets: ExerciseSet[];
+}
+
+interface WorkoutData {
+  date: string;
+  exercises: Exercise[];
+}
+
+interface ExerciseWithDate {
+  name: string;
+  date: string;
+}
 export default function DashboardContent() {
   const router = useRouter();
+
+  const [recentExercises] = useState<ExerciseWithDate[]>(() => {
+    const exercisesWithDates: ExerciseWithDate[] = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("workout-")) {
+        const workout: WorkoutData = JSON.parse(
+          localStorage.getItem(key) || ""
+        );
+        workout.exercises.forEach((exercise) => {
+          if (exercise.name) {
+            exercisesWithDates.push({
+              name: exercise.name,
+              date: workout.date,
+            });
+          }
+        });
+      }
+    }
+
+    // Sort by date (most recent first)
+    exercisesWithDates.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+    return exercisesWithDates;
+  });
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -63,19 +120,32 @@ export default function DashboardContent() {
       </div>
 
       {/* Recent Activities */}
-      <div className="mb-8">
+      <div className="mb-8 flex flex-col gap-4">
         <h2 className="text-2xl font-bold mb-4">Recent Activities</h2>
+
+        <Button variant="primary" onClick={() => router.push("/workout")}>
+          Start Workout
+        </Button>
+
         <Card>
           <Card.Body>
-            <div className="text-base-content/60 text-center py-8">
+            {recentExercises.length > 0 ? (
+              <div className="space-y-2">
+                {recentExercises.map((exercise, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center p-3 bg-base-300 rounded-lg hover:bg-base-200 transition-colors"
+                  >
+                    <span className="font-medium">{exercise.name}</span>
+                    <span className="text-base-content/60 text-sm">
+                      {formatDate(exercise.date)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
               <p>No recent activities</p>
-              <button
-                className="btn btn-primary mt-4"
-                onClick={() => router.push("/workout")}
-              >
-                Start Workout
-              </button>
-            </div>
+            )}
           </Card.Body>
         </Card>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "@/components/ui/Card";
+import { Card } from "@/data-display";
 import { useRouter } from "next/navigation";
 import { BarChartIcon, PersonIcon, TimerIcon } from "@radix-ui/react-icons";
 

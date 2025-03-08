@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Drawer } from "@/layout";
-import ClientWrapper from "@/components/ui/ClientWrapper";
+import { ClientWrapper } from "@/components/core/utils/ClientWrapper";
 
 export const metadata: Metadata = {
   title: "Track Fitness",

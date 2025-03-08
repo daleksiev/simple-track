@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Card from "@/components/ui/Card";
+import { Card } from "@/data-display";
 import { PlusIcon, Cross2Icon } from "@radix-ui/react-icons";
 
 interface ExerciseSet {

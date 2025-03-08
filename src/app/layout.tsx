@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Drawer from "@/components/ui/Drawer";
+import { Drawer } from "@/layout";
 import ClientWrapper from "@/components/ui/ClientWrapper";
 
 export const metadata: Metadata = {

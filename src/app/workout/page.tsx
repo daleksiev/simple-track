@@ -123,16 +123,15 @@ export default function WorkoutPage() {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container p-6 w-full">
       <h1 className="text-3xl font-bold mb-8">{getDayName()}&apos;s Workout</h1>
-
       <Card>
         <Card.Body>
-          <div className="divide-y ">
+          <div className="divide-y flex flex-wrap justify-evenly gap-4 w-full">
             {exercises.map((exercise, exerciseIndex) => (
               <div
                 key={exerciseIndex}
-                className="bg-base-200 rounded-lg p-4 my-6 shadow-lg shadow-indigo-600 border border-indigo-600"
+                className="w-80 bg-base-200 rounded-lg p-4 shadow-lg shadow-indigo-600 border border-indigo-600 "
               >
                 <div className="flex flex-row-reverse items-center gap-2 mb-3 justify-between">
                   <button

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/data-display";
 import { Input } from "@/data-input";
 import { PlusIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { Button } from "@/components/core/actions";
 
 interface ExerciseSet {
   reps: string;
@@ -32,7 +33,7 @@ export default function WorkoutPage() {
       const workoutData: WorkoutData = JSON.parse(savedWorkout);
       setExercises(workoutData.exercises);
     } else {
-      setExercises([{ name: "", weight: "", sets: [{ reps: "" }] }]);
+      setExercises([{ name: "Exercise 1", weight: "", sets: [{ reps: "" }] }]);
     }
   }, []);
 
@@ -59,7 +60,11 @@ export default function WorkoutPage() {
   const addExercise = () => {
     const updatedExercises = [
       ...exercises,
-      { name: "", weight: "", sets: [{ reps: "" }] },
+      {
+        name: `Exercise ${exercises.length + 1}`,
+        weight: "",
+        sets: [{ reps: "" }],
+      },
     ];
     setExercises(updatedExercises);
     saveToLocalStorage(updatedExercises);
@@ -137,19 +142,23 @@ export default function WorkoutPage() {
                   <h1 className="text-2xl font-bold">
                     {exercise?.name || `Exercise ${exerciseIndex + 1}`}
                   </h1>
-                  <button
+                  <Button
                     className="btn btn-square btn-sm btn-error"
                     onClick={() => deleteExercise(exerciseIndex)}
                   >
                     <Cross2Icon className="w-4 h-4" />
-                  </button>
+                  </Button>
                 </div>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex-1">
                     <label className="label">Exercise</label>
                     <Input
-                      placeholder={`Exercise ${exerciseIndex + 1}`}
-                      value={exercise.name}
+                      placeholder={exercise.name}
+                      value={
+                        exercise.name.startsWith(`Exercise `)
+                          ? ""
+                          : exercise.name
+                      }
                       onChange={(e) =>
                         updateExercise(exerciseIndex, "name", e.target.value)
                       }

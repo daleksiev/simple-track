@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card } from "@/data-display";
+import { Badge, Card } from "@/data-display";
 import { Button } from "@/actions";
 import { Modal } from "@/actions";
 import { Cross2Icon } from "@radix-ui/react-icons";
@@ -132,29 +132,50 @@ export default function HistoryPage() {
                   <thead>
                     <tr>
                       <th>Exercise</th>
+                    </tr>
+                    <tr>
                       <th>Weight (kg)</th>
                       <th>Sets x Reps</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {workout.exercises.map((exercise, index) => (
-                      <tr key={index}>
-                        <td>{exercise.name || "-"}</td>
-                        <td>{exercise.weight || "-"}</td>
-                        <td>
-                          <div className="flex flex-wrap gap-2">
-                            {exercise.sets.map((set, setIndex) => (
-                              <span
-                                key={setIndex}
-                                className="badge badge-primary"
-                              >
-                                {set.reps || "0"} reps
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                    {workout.exercises
+                      .filter((exercise) => exercise.name)
+                      .map((exercise, index) => (
+                        <>
+                          {index === 0 && (
+                            <tr key={`${index}-top-line`}>
+                              <td
+                                colSpan={3}
+                                className="border-b-2 border-indigo-500"
+                              ></td>
+                            </tr>
+                          )}
+                          <tr key={`${index}-name`}>
+                            <td colSpan={3}>
+                              Exercise: {exercise.name || "-"}
+                            </td>
+                          </tr>
+                          <tr key={`${index}-other-info`}>
+                            <td>{exercise.weight || "-"} kg</td>
+                            <td>
+                              <div className="flex flex-wrap gap-2">
+                                {exercise.sets.map((set, setIndex) => (
+                                  <Badge key={setIndex} className="text-wrap">
+                                    {set.reps || "0"} reps
+                                  </Badge>
+                                ))}
+                              </div>
+                            </td>
+                          </tr>
+                          <tr key={`${index}-bottom-line`}>
+                            <td
+                              colSpan={3}
+                              className="border-b-2 border-indigo-500"
+                            ></td>
+                          </tr>
+                        </>
+                      ))}
                   </tbody>
                 </table>
               </div>

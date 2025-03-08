@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   HomeIcon,
   PersonIcon,
-  BarChartIcon,
+  ClockIcon,
   GearIcon,
 } from "@radix-ui/react-icons";
 
@@ -37,9 +37,9 @@ export function Navigation({ isExpanded }: { isExpanded: boolean }) {
   const navItems = [
     { icon: <HomeIcon className="w-4 h-4" />, title: "Dashboard", href: "/" },
     {
-      icon: <BarChartIcon className="w-4 h-4" />,
-      title: "Statistics",
-      href: "/statistics",
+      icon: <ClockIcon className="w-4 h-4" />,
+      title: "History",
+      href: "/history",
     },
     {
       icon: <PersonIcon className="w-4 h-4" />,

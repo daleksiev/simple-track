@@ -8,6 +8,8 @@ interface ModalProps {
   children: React.ReactNode;
   title?: string;
   className?: string;
+  showCloseButton?: boolean;
+  buttons?: React.ReactNode[];
 }
 
 export function Modal({
@@ -16,6 +18,8 @@ export function Modal({
   children,
   title,
   className = "",
+  showCloseButton = false,
+  buttons = [],
 }: ModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
 
@@ -36,9 +40,12 @@ export function Modal({
         {title && <h3 className="font-bold text-lg">{title}</h3>}
         {children}
         <div className="modal-action">
-          <button className="btn" onClick={handleClose}>
-            Close
-          </button>
+          {showCloseButton && (
+            <button className="btn" onClick={handleClose}>
+              Close
+            </button>
+          )}
+          {buttons}
         </div>
       </div>
       <div className="modal-backdrop" onClick={handleClose} />

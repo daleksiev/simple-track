@@ -1,5 +1,7 @@
 # Fitness Tracking Application
 
+Visit https://simple-track-nine.vercel.app/ for quick demo.
+
 A modern fitness tracking application built with Next.js, DaisyUI, and Tailwind CSS. Track your workouts, monitor progress, and maintain your exercise history.
 
 ## Features

@@ -3,16 +3,17 @@
 import { Card } from "@/data-display";
 import { useRouter } from "next/navigation";
 import { BarChartIcon, PersonIcon, TimerIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/core/actions";
-import { useState } from "react";
+import { Button } from "@/components/core/actions/Button";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface ExerciseSet {
-  reps: string;
+  weight: number;
+  reps: number;
 }
 
 interface Exercise {
   name: string;
-  weight: string;
   sets: ExerciseSet[];
 }
 
@@ -21,48 +22,59 @@ interface WorkoutData {
   exercises: Exercise[];
 }
 
-interface ExerciseWithDate {
-  name: string;
-  date: string;
-}
 export default function DashboardContent() {
   const router = useRouter();
+  const [recentExercises, setRecentExercises] = useState<
+    { name: string; date: string }[]
+  >([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [recentExercises] = useState<ExerciseWithDate[]>(() => {
-    const exercisesWithDates: ExerciseWithDate[] = [];
+  useEffect(() => {
+    try {
+      const workoutHistory = JSON.parse(
+        localStorage.getItem("workoutHistory") || "[]"
+      ) as WorkoutData[];
 
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith("workout-")) {
-        const workout: WorkoutData = JSON.parse(
-          localStorage.getItem(key) || ""
+      const exercisesWithDates = workoutHistory
+        .flatMap((workout) =>
+          workout.exercises.map((exercise) => ({
+            name: exercise.name,
+            date: workout.date,
+          }))
+        )
+        .filter((exercise) => exercise.name)
+        .sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         );
-        workout.exercises.forEach((exercise) => {
-          if (exercise.name) {
-            exercisesWithDates.push({
-              name: exercise.name,
-              date: workout.date,
-            });
-          }
-        });
-      }
-    }
 
-    // Sort by date (most recent first)
-    exercisesWithDates.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-    return exercisesWithDates;
-  });
+      setRecentExercises(exercisesWithDates);
+    } catch (error) {
+      console.error("Error loading workout history:", error);
+      setRecentExercises([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    return date.toLocaleDateString("en-GB"); // DD/MM/YYYY format
   };
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto p-4">
+        <div className="animate-pulse">
+          <div className="h-8 bg-base-200 rounded w-48 mb-4"></div>
+          <div className="space-y-3">
+            <div className="h-20 bg-base-200 rounded"></div>
+            <div className="h-20 bg-base-200 rounded"></div>
+            <div className="h-20 bg-base-200 rounded"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-6">
@@ -133,7 +145,7 @@ export default function DashboardContent() {
               <div className="space-y-2">
                 {recentExercises.map((exercise, index) => (
                   <div
-                    key={index}
+                    key={`${exercise.name}-${index}`}
                     className="flex justify-between items-center p-3 bg-base-300 rounded-lg hover:bg-base-200 transition-colors"
                   >
                     <span className="font-medium">{exercise.name}</span>
@@ -144,7 +156,12 @@ export default function DashboardContent() {
                 ))}
               </div>
             ) : (
-              <p>No recent activities</p>
+              <div className="text-center py-8">
+                <p className="mb-4">No recent activities</p>
+                <Link href="/workout">
+                  <Button>Start Workout</Button>
+                </Link>
+              </div>
             )}
           </Card.Body>
         </Card>

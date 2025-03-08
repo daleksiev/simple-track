@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CSSProperties } from "react";
 
 interface CountdownProps {
   targetDate: Date;
@@ -8,12 +9,19 @@ interface CountdownProps {
   className?: string;
 }
 
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 export function Countdown({
   targetDate,
   onComplete,
   className = "",
 }: CountdownProps) {
-  const [timeLeft, setTimeLeft] = useState({
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
     minutes: 0,
@@ -50,25 +58,25 @@ export function Countdown({
     >
       <div className="flex flex-col">
         <span className="countdown font-mono text-5xl">
-          <span style={{ "--value": timeLeft.days } as any}></span>
+          <span style={{ "--value": timeLeft.days } as CSSProperties}></span>
         </span>
         days
       </div>
       <div className="flex flex-col">
         <span className="countdown font-mono text-5xl">
-          <span style={{ "--value": timeLeft.hours } as any}></span>
+          <span style={{ "--value": timeLeft.hours } as CSSProperties}></span>
         </span>
         hours
       </div>
       <div className="flex flex-col">
         <span className="countdown font-mono text-5xl">
-          <span style={{ "--value": timeLeft.minutes } as any}></span>
+          <span style={{ "--value": timeLeft.minutes } as CSSProperties}></span>
         </span>
         min
       </div>
       <div className="flex flex-col">
         <span className="countdown font-mono text-5xl">
-          <span style={{ "--value": timeLeft.seconds } as any}></span>
+          <span style={{ "--value": timeLeft.seconds } as CSSProperties}></span>
         </span>
         sec
       </div>

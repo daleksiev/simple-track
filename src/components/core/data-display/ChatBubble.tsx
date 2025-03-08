@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface ChatBubbleProps {
   message: string;
   sender?: string;
@@ -19,8 +21,14 @@ export function ChatBubble({
     <div className={`chat ${isUser ? "chat-end" : "chat-start"} ${className}`}>
       {avatar && (
         <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img src={avatar} alt={sender} />
+          <div className="w-10 rounded-full relative">
+            <Image
+              src={avatar}
+              alt={sender || "User avatar"}
+              fill
+              sizes="40px"
+              className="rounded-full"
+            />
           </div>
         </div>
       )}

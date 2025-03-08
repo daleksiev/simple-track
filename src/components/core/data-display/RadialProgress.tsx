@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+
 interface RadialProgressProps {
   value: number;
   size?: string;
@@ -13,17 +15,14 @@ export function RadialProgress({
   color = "primary",
   className = "",
 }: RadialProgressProps) {
+  const style = {
+    "--value": value,
+    "--size": size,
+    "--thickness": thickness,
+  } as CSSProperties;
+
   return (
-    <div
-      className={`radial-progress text-${color} ${className}`}
-      style={
-        {
-          "--value": value,
-          "--size": size,
-          "--thickness": thickness,
-        } as any
-      }
-    >
+    <div className={`radial-progress text-${color} ${className}`} style={style}>
       {value}%
     </div>
   );

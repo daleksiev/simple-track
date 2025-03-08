@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Badge, Card } from "@/data-display";
 import { Button } from "@/actions";
@@ -142,21 +142,21 @@ export default function HistoryPage() {
                     {workout.exercises
                       .filter((exercise) => exercise.name)
                       .map((exercise, index) => (
-                        <>
+                        <Fragment key={index}>
                           {index === 0 && (
-                            <tr key={`${index}-top-line`}>
+                            <tr>
                               <td
                                 colSpan={3}
                                 className="border-b-2 border-indigo-500"
                               ></td>
                             </tr>
                           )}
-                          <tr key={`${index}-name`}>
+                          <tr>
                             <td colSpan={3}>
                               Exercise: {exercise.name || "-"}
                             </td>
                           </tr>
-                          <tr key={`${index}-other-info`}>
+                          <tr>
                             <td>{exercise.weight || "-"} kg</td>
                             <td>
                               <div className="flex flex-wrap gap-2">
@@ -168,13 +168,13 @@ export default function HistoryPage() {
                               </div>
                             </td>
                           </tr>
-                          <tr key={`${index}-bottom-line`}>
+                          <tr>
                             <td
                               colSpan={3}
                               className="border-b-2 border-indigo-500"
                             ></td>
                           </tr>
-                        </>
+                        </Fragment>
                       ))}
                   </tbody>
                 </table>

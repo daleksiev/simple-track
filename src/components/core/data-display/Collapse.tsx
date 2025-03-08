@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 interface CollapseProps {
   title: React.ReactNode;
   children: React.ReactNode;

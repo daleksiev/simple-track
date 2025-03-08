@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 interface Tab {
   label: string;
   content: React.ReactNode;
@@ -16,17 +18,18 @@ export function Tabs({ tabs, defaultTab = 0, className = "" }: TabsProps) {
 
   return (
     <div className={`tabs ${className}`}>
-      {tabs.map((tab, index) => (
-        <a
-          key={index}
-          className={`tab tab-bordered ${
-            activeTab === index ? "tab-active" : ""
-          }`}
-          onClick={() => setActiveTab(index)}
-        >
-          {tab.label}
-        </a>
-      ))}
+      <div className="tabs tabs-boxed">
+        {tabs.map((tab, index) => (
+          <button
+            key={index}
+            className={`tab ${activeTab === index ? "tab-active" : ""}`}
+            onClick={() => setActiveTab(index)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="mt-4">{tabs[activeTab].content}</div>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import "./globals.css";
 import { Drawer } from "@/components/core/layout/Drawer";
-import { ClientWrapper } from "@/components/core/navigation/ClientWrapper";
 
 export const metadata: Metadata = {
   title: "Track Fitness",
@@ -16,9 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark">
       <body className="min-h-screen bg-base-100" suppressHydrationWarning>
-        <ClientWrapper>
-          <Drawer />
-        </ClientWrapper>
+        <Drawer />
         <main className="ml-14 transition-all duration-300">{children}</main>
       </body>
     </html>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   HomeIcon,
   PersonIcon,
@@ -11,11 +12,15 @@ interface NavItemProps {
   icon: React.ReactNode;
   title: string;
   isExpanded: boolean;
+  href: string;
 }
 
-const NavItem = ({ icon, title, isExpanded }: NavItemProps) => (
+const NavItem = ({ icon, title, isExpanded, href }: NavItemProps) => (
   <li>
-    <a className="flex items-center gap-3 px-3 py-2 hover:bg-base-200 rounded-lg mx-2">
+    <Link
+      href={href}
+      className="flex items-center gap-3 px-3 py-2 hover:bg-base-200 rounded-lg mx-2"
+    >
       <span className="text-base">{icon}</span>
       <span
         className={`whitespace-nowrap transition-all duration-300 text-sm ${
@@ -24,16 +29,28 @@ const NavItem = ({ icon, title, isExpanded }: NavItemProps) => (
       >
         {title}
       </span>
-    </a>
+    </Link>
   </li>
 );
 
 export function Navigation({ isExpanded }: { isExpanded: boolean }) {
   const navItems = [
-    { icon: <HomeIcon className="w-4 h-4" />, title: "Dashboard" },
-    { icon: <PersonIcon className="w-4 h-4" />, title: "Profile" },
-    { icon: <BarChartIcon className="w-4 h-4" />, title: "Statistics" },
-    { icon: <GearIcon className="w-4 h-4" />, title: "Settings" },
+    { icon: <HomeIcon className="w-4 h-4" />, title: "Dashboard", href: "/" },
+    {
+      icon: <BarChartIcon className="w-4 h-4" />,
+      title: "Statistics",
+      href: "/statistics",
+    },
+    {
+      icon: <PersonIcon className="w-4 h-4" />,
+      title: "Profile",
+      href: "/profile",
+    },
+    {
+      icon: <GearIcon className="w-4 h-4" />,
+      title: "Settings",
+      href: "/settings",
+    },
   ];
 
   return (
@@ -54,6 +71,7 @@ export function Navigation({ isExpanded }: { isExpanded: boolean }) {
             icon={item.icon}
             title={item.title}
             isExpanded={isExpanded}
+            href={item.href}
           />
         ))}
       </ul>

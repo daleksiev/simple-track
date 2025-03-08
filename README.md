@@ -1,22 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fitness Tracking Application
+
+A modern fitness tracking application built with Next.js, DaisyUI, and Tailwind CSS. Track your workouts, monitor progress, and maintain your exercise history.
+
+## Features
+
+- 📊 Dashboard with quick stats and recent activities
+- 💪 Workout tracking with exercises, sets, and reps
+- 📅 Workout history with date tracking
+- 🌙 Dark mode support
+- 📱 Responsive design
+- 🎯 Quick actions for common tasks
+
+## Tech Stack
+
+- [Next.js 14](https://nextjs.org/) - React framework
+- [TailwindCSS](https://tailwindcss.com/) - CSS framework
+- [DaisyUI](https://daisyui.com/) - Component library
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Radix UI Icons](https://icons.radix-ui.com/) - Icon library
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/fitness-tracker.git
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

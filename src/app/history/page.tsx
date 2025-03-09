@@ -158,14 +158,16 @@ export default function HistoryPage() {
                                         }
                                       : { ...prev, [curr.reps]: 1 };
                                   }, {})
-                                ).map(([reps, count]: [string, number]) => {
-                                  console.log(reps, count);
-                                  return (
-                                    <Badge key={reps}>
-                                      {count}x{reps || "0"}
-                                    </Badge>
-                                  );
-                                })}
+                                )
+                                  .reverse()
+                                  .map(([reps, count]: [string, number]) => {
+                                    console.log(reps, count);
+                                    return (
+                                      <Badge key={reps}>
+                                        {count}x{reps || "0"}
+                                      </Badge>
+                                    );
+                                  })}
                               </div>
                             </td>
                           </tr>

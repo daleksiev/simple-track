@@ -145,7 +145,7 @@ export default function HistoryPage() {
                             <td>Exercise: {exercise.name || "-"}</td>
                             <td className="p-0">{exercise.weight || "-"} kg</td>
                             <td className="p-0">
-                              <div className="flex flex-wrap gap-2">
+                              <div className="flex flex-wrap gap-2 pt-2 pb-2">
                                 {Object.entries(
                                   exercise.sets.reduce<{
                                     [key: string]: number;

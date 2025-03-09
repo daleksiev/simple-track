@@ -131,9 +131,9 @@ export default function HistoryPage() {
                 <table className="table table-zebra w-full">
                   <thead>
                     <tr>
-                      <th>Exercise</th>
-                      <th>Weight (kg)</th>
-                      <th>Sets x Reps</th>
+                      <th className="p-0">Exercise</th>
+                      <th className="p-0">Weight</th>
+                      <th className="p-0">Sets x Reps</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -143,8 +143,8 @@ export default function HistoryPage() {
                         <Fragment key={index}>
                           <tr className="border-b-2 border-indigo-500">
                             <td>Exercise: {exercise.name || "-"}</td>
-                            <td>{exercise.weight || "-"} kg</td>
-                            <td>
+                            <td className="p-0">{exercise.weight || "-"} kg</td>
+                            <td className="p-0">
                               <div className="flex flex-wrap gap-2">
                                 {Object.entries(
                                   exercise.sets.reduce<{
@@ -152,16 +152,20 @@ export default function HistoryPage() {
                                   }>((prev, curr) => {
                                     return Object.hasOwn(prev, curr.reps)
                                       ? {
+                                          ...prev,
                                           [curr.reps]:
                                             Number(prev[curr.reps]) + 1,
                                         }
-                                      : { [curr.reps]: 1 };
+                                      : { ...prev, [curr.reps]: 1 };
                                   }, {})
-                                ).map(([reps, count]: [string, number]) => (
-                                  <Badge key={reps} className="text-wrap">
-                                    {count} x {reps || "0"} reps
-                                  </Badge>
-                                ))}
+                                ).map(([reps, count]: [string, number]) => {
+                                  console.log(reps, count);
+                                  return (
+                                    <Badge key={reps}>
+                                      {count}x{reps || "0"}
+                                    </Badge>
+                                  );
+                                })}
                               </div>
                             </td>
                           </tr>

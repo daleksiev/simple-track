@@ -132,8 +132,6 @@ export default function HistoryPage() {
                   <thead>
                     <tr>
                       <th>Exercise</th>
-                    </tr>
-                    <tr>
                       <th>Weight (kg)</th>
                       <th>Sets x Reps</th>
                     </tr>
@@ -143,36 +141,29 @@ export default function HistoryPage() {
                       .filter((exercise) => exercise.name)
                       .map((exercise, index) => (
                         <Fragment key={index}>
-                          {index === 0 && (
-                            <tr>
-                              <td
-                                colSpan={3}
-                                className="border-b-2 border-indigo-500"
-                              ></td>
-                            </tr>
-                          )}
-                          <tr>
-                            <td colSpan={3}>
-                              Exercise: {exercise.name || "-"}
-                            </td>
-                          </tr>
-                          <tr>
+                          <tr className="border-b-2 border-indigo-500">
+                            <td>Exercise: {exercise.name || "-"}</td>
                             <td>{exercise.weight || "-"} kg</td>
                             <td>
                               <div className="flex flex-wrap gap-2">
-                                {exercise.sets.map((set, setIndex) => (
-                                  <Badge key={setIndex} className="text-wrap">
-                                    {set.reps || "0"} reps
+                                {Object.entries(
+                                  exercise.sets.reduce<{
+                                    [key: string]: number;
+                                  }>((prev, curr) => {
+                                    return Object.hasOwn(prev, curr.reps)
+                                      ? {
+                                          [curr.reps]:
+                                            Number(prev[curr.reps]) + 1,
+                                        }
+                                      : { [curr.reps]: 1 };
+                                  }, {})
+                                ).map(([reps, count]: [string, number]) => (
+                                  <Badge key={reps} className="text-wrap">
+                                    {count} x {reps || "0"} reps
                                   </Badge>
                                 ))}
                               </div>
                             </td>
-                          </tr>
-                          <tr>
-                            <td
-                              colSpan={3}
-                              className="border-b-2 border-indigo-500"
-                            ></td>
                           </tr>
                         </Fragment>
                       ))}

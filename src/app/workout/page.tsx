@@ -143,7 +143,8 @@ export default function WorkoutPage() {
                     {exercise?.name || `Exercise ${exerciseIndex + 1}`}
                   </h1>
                   <Button
-                    className="btn btn-square btn-sm btn-error"
+                    className="btn-square btn-sm"
+                    variant="error"
                     onClick={() => deleteExercise(exerciseIndex)}
                   >
                     <Cross2Icon className="w-4 h-4" />
@@ -165,55 +166,51 @@ export default function WorkoutPage() {
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="label">Weight (kg)</label>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 items-end">
+                  <div className="w-1/6">
+                    <label className="label">Weight</label>
                     <Input
                       type="number"
-                      placeholder="Weight"
+                      placeholder="kg"
                       value={exercise.weight}
                       onChange={(e) =>
                         updateExercise(exerciseIndex, "weight", e.target.value)
                       }
                     />
                   </div>
-                  <div>
-                    <label className="label">Sets x Reps</label>
-                    <div className="flex flex-wrap gap-2">
-                      {exercise.sets.map((set, index) => (
-                        <Input
-                          key={index}
-                          type="number"
-                          placeholder="Reps"
-                          className="w-16"
-                          value={set.reps}
-                          data-exercise={exerciseIndex}
-                          autoFocus={index === exercise.sets.length - 1}
-                          onChange={(e) =>
-                            updateSet(exerciseIndex, index, e.target.value)
+                  {exercise.sets.map((set, index) => (
+                    <div key={index} className="flex flex-wrap w-1/6">
+                      Rep
+                      <Input
+                        type="number"
+                        placeholder="Reps"
+                        value={set.reps}
+                        data-exercise={exerciseIndex}
+                        autoFocus={index === exercise.sets.length - 1}
+                        onChange={(e) =>
+                          updateSet(exerciseIndex, index, e.target.value)
+                        }
+                        onKeyDown={(e) => {
+                          if (
+                            (e.key === "Backspace" || e.key === "Delete") &&
+                            set.reps === ""
+                          ) {
+                            e.preventDefault();
+                            deleteSet(exerciseIndex, index);
+                          } else if (e.key === "Enter" && set.reps !== "") {
+                            e.preventDefault();
+                            addSet(exerciseIndex);
                           }
-                          onKeyDown={(e) => {
-                            if (
-                              (e.key === "Backspace" || e.key === "Delete") &&
-                              set.reps === ""
-                            ) {
-                              e.preventDefault();
-                              deleteSet(exerciseIndex, index);
-                            } else if (e.key === "Enter" && set.reps !== "") {
-                              e.preventDefault();
-                              addSet(exerciseIndex);
-                            }
-                          }}
-                        />
-                      ))}
-                      <button
-                        className="btn btn-square btn-sm btn-outline"
-                        onClick={() => addSet(exerciseIndex)}
-                      >
-                        <PlusIcon className="w-4 h-4" />
-                      </button>
+                        }}
+                      />
                     </div>
-                  </div>
+                  ))}
+                  <button
+                    className="btn btn-square btn-sm btn-outline"
+                    onClick={() => addSet(exerciseIndex)}
+                  >
+                    <PlusIcon className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             ))}

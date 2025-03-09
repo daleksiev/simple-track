@@ -12,7 +12,7 @@ export function Input({ label, error, className = "", ...props }: InputProps) {
         </label>
       )}
       <input
-        className={`input input-bordered w-full focus:outline-none ${
+        className={`input input-bordered focus:outline-none ${
           error ? "input-error" : ""
         } ${className}`}
         {...props}
